@@ -9,7 +9,7 @@ export const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-block: 19px;
+  padding-block: 18px;
   background-color: white;
   padding-inline: 10%;
 `;

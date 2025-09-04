@@ -18,6 +18,11 @@
   }
 }
 
+main {
+  margin-top: 112px;
+  padding-inline: 10%;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
