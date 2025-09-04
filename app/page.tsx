@@ -1,20 +1,21 @@
-import Select from '@/components/select/Select';
-import Image from 'next/image';
+import ProductsSection from '@/components/productsSection/ProductsSection';
+import { getCategories } from '@/services/category';
+import { getProducts } from '@/services/products';
 
-export default function Home() {
+export default async function Home() {
+  const categoriesResponse = await getCategories();
+  const productResponse = await getProducts('all');
+  const { categories } = categoriesResponse;
+  const { products } = productResponse;
+  console.log(products);
+
   return (
     <div>
       <main>
-        <div className="flex justify-between">
-          <Select
-            placeholder="Selecione a categoria"
-            options={[{ label: '12312', value: '12' }]}
-          />
-          <Select
-            placeholder="Organizar por"
-            options={[{ label: '12312', value: '12' }]}
-          />
-        </div>
+        <ProductsSection
+          categories={categories}
+          initialProducts={productResponse}
+        />
       </main>
     </div>
   );

@@ -19,6 +19,7 @@ yarn-debug.log*
 yarn-error.log*
 *.pid
 *.seed
+*.lock
 *.pid.lock
 .npm
 .eslintcache
