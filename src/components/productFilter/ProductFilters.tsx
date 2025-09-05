@@ -2,76 +2,108 @@
 
 import Select from '@/components/select/Select';
 import { SORT_OPTIONS } from '@/constants';
-import { getProducts } from '@/services/products';
 import { transformCategoriesToSelectOptions } from '@/utils/transformCategoriesInterfaceToSelectOptions';
-import { useEffect, useState } from 'react';
-import useSWR from 'swr';
-import { ProductFilterProps } from './ProductFilters.types';
+import { useEffect } from 'react';
+import { ProductFilterProps, SortValueOptions } from './ProductFilters.types';
 import { sortProducts } from '@/utils/sortProducts';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { generateSlug } from '@/utils/generateSlugs';
+import Breadcrumbs from '../breadcrumbs/Breadcrumbs';
+import { FiltersContainer } from './ProductFIlters.styles';
 
 export default function ProductFilters({
   categories,
-  initialProducts,
+  productsResponse,
   onProductsChange,
+  selectedCategory = { id: 'all', name: 'all', description: '' },
+  initialSort = '',
+  initialSearch = '',
 }: ProductFilterProps) {
-  const [category, setCategory] = useState('all');
-  const [sortBy, setSortBy] = useState<string>('');
-  const [hasChangedCategory, setHasChangedCategory] = useState(false);
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
+  const sortBy = searchParams.get('sort') || initialSort;
+  const search = searchParams.get('search') || initialSearch;
+  const hasSelectedCategory = selectedCategory.id != 'all';
 
-  const { data: productsResponse, isLoading } = useSWR(
-    hasChangedCategory ? `/products?category=${category}` : null,
-    () => getProducts(category),
-    {
-      fallbackData: initialProducts,
-    }
-  );
+  const currentCategoryId = selectedCategory.id;
 
   useEffect(() => {
-    if (productsResponse?.products && onProductsChange) {
-      if (sortBy) {
-        const sortedProducts = sortProducts(
-          productsResponse.products,
-          sortBy as any
-        );
-        onProductsChange({
-          ...productsResponse,
-          products: sortedProducts,
-        });
-        return;
-      }
-      {
-        onProductsChange(productsResponse);
-      }
+    if (sortBy && productsResponse?.products) {
+      const sortedProducts = sortProducts(
+        productsResponse.products,
+        sortBy as SortValueOptions
+      );
+      onProductsChange({
+        ...productsResponse,
+        products: sortedProducts,
+      });
+    } else if (productsResponse && onProductsChange) {
+      onProductsChange(productsResponse);
     }
-  }, [productsResponse, sortBy]);
+  }, [sortBy, productsResponse]);
 
   const categoriesSelectOption = Array.isArray(categories)
     ? transformCategoriesToSelectOptions(categories)
     : [];
 
+  const updateURL = (params: Record<string, string | null>) => {
+    const newSearchParams = new URLSearchParams(searchParams);
+
+    Object.entries(params).forEach(([key, value]) => {
+      if (value && value !== 'all' && value !== '') {
+        newSearchParams.set(key, value);
+        return;
+      }
+      {
+        newSearchParams.delete(key);
+      }
+    });
+
+    router.replace(`${pathname}?${newSearchParams.toString()}`, {
+      scroll: false,
+    });
+  };
+
   const onChangeCategory = (value: string) => {
-    setCategory(value);
-    setHasChangedCategory(true);
+    if (value === 'all') {
+      router.push('/');
+      return;
+    }
+
+    const selectedCategory = categories.find(cat => cat.id === value);
+    if (selectedCategory) {
+      router.push(`/categoria/${generateSlug(selectedCategory.name)}`);
+    }
   };
 
   const onChangeSort = (value: string) => {
-    setSortBy(value);
+    updateURL({ sort: value });
   };
 
+  const breadcrumbsItens = [
+    { name: 'Produto', href: '/' },
+    { name: selectedCategory.name, href: undefined },
+  ];
+
   return (
-    <div className="flex justify-between">
-      <Select
-        value={category}
-        onChange={onChangeCategory}
-        placeholder="Selecione a categoria"
-        options={categoriesSelectOption}
-      />
+    <FiltersContainer>
+      {hasSelectedCategory ? (
+        <Breadcrumbs breadcrumbItens={breadcrumbsItens} />
+      ) : (
+        <Select
+          value={currentCategoryId}
+          onChange={onChangeCategory}
+          placeholder="Selecione a categoria"
+          options={categoriesSelectOption}
+        />
+      )}
       <Select
         value={sortBy}
         onChange={onChangeSort}
         placeholder="Organizar por"
         options={SORT_OPTIONS}
       />
-    </div>
+    </FiltersContainer>
   );
 }

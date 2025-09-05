@@ -3,8 +3,11 @@ import { ProductsResponseInterface } from '@/services/types/Product';
 
 export interface ProductFilterProps {
   categories: CategoryInterface[];
-  initialProducts?: ProductsResponseInterface;
-  onProductsChange?: (newProducts: ProductsResponseInterface) => void;
+  productsResponse: ProductsResponseInterface;
+  onProductsChange: (products: ProductsResponseInterface) => void;
+  selectedCategory?: CategoryInterface;
+  initialSort?: string;
+  initialSearch?: string;
 }
 export type SortValueOptions =
   | 'novidades'

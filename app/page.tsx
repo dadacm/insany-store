@@ -6,15 +6,13 @@ export default async function Home() {
   const categoriesResponse = await getCategories();
   const productResponse = await getProducts('all');
   const { categories } = categoriesResponse;
-  const { products } = productResponse;
-  console.log(products);
 
   return (
     <div>
       <main>
         <ProductsSection
           categories={categories}
-          initialProducts={productResponse}
+          productsResponse={productResponse}
         />
       </main>
     </div>
