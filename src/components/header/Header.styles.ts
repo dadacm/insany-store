@@ -6,13 +6,20 @@ export const HeaderContainer = styled.div`
   left: 0;
   right: 0;
   z-index: 1000;
+  background-color: white;
+  padding-block: 18px;
+  justify-content: center;
+  display: flex;
+  padding-inline: 10%;
+`;
+
+export const HeaderContent = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-block: 18px;
-  background-color: white;
-  padding-inline: 10%;
+  width: 100%;
 `;
+
 export const HeaderTitle = styled.h1`
   font-size: 40px;
   font-weight: 700;

@@ -6,9 +6,10 @@ export interface ProductFilterProps {
   productsResponse: ProductsResponseInterface;
   onProductsChange: (products: ProductsResponseInterface) => void;
   selectedCategory?: CategoryInterface;
-  initialSort?: string;
-  initialSearch?: string;
+  currentSort?: string;
+  currentSearch?: string;
 }
+
 export type SortValueOptions =
   | 'novidades'
   | 'preco-maior-menor'

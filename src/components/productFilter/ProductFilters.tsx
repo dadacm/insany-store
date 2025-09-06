@@ -10,21 +10,22 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { generateSlug } from '@/utils/generateSlugs';
 import Breadcrumbs from '../breadcrumbs/Breadcrumbs';
 import { FiltersContainer } from './ProductFIlters.styles';
+import { findCategoryById } from '@/utils/findCategoryById';
 
 export default function ProductFilters({
   categories,
   productsResponse,
   onProductsChange,
   selectedCategory = { id: 'all', name: 'all', description: '' },
-  initialSort = '',
-  initialSearch = '',
+  currentSort = '',
+  currentSearch = '',
 }: ProductFilterProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const sortBy = searchParams.get('sort') || initialSort;
-  const search = searchParams.get('search') || initialSearch;
-  const hasSelectedCategory = selectedCategory.id != 'all';
+  const sortBy = searchParams.get('sort') || currentSort;
+  const search = searchParams.get('search') || currentSearch;
+  const hasSelectedCategory = selectedCategory.id !== 'all';
 
   const currentCategoryId = selectedCategory.id;
 
@@ -60,6 +61,10 @@ export default function ProductFilters({
       }
     });
 
+    if (params.sort || params.search) {
+      newSearchParams.delete('page');
+    }
+
     router.replace(`${pathname}?${newSearchParams.toString()}`, {
       scroll: false,
     });
@@ -71,7 +76,7 @@ export default function ProductFilters({
       return;
     }
 
-    const selectedCategory = categories.find(cat => cat.id === value);
+    const selectedCategory = findCategoryById(categories, value);
     if (selectedCategory) {
       router.push(`/categoria/${generateSlug(selectedCategory.name)}`);
     }

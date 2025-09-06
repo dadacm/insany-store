@@ -8,19 +8,23 @@ import {
   PageTitle,
   TitleContainer,
 } from './ProductsSection.styles';
+import ProductsList from '../productsList/ProductsList';
+import { Pagination } from '../pagination/Pagination';
 
 export default function ProductsSection({
   productsResponse,
   categories,
   selectedCategory,
-  initialSort,
-  initialSearch,
+  currentSort,
+  currentSearch,
+  currentPage = 1,
 }: ProductsSectionProps) {
   const [products, setProducts] = useState(productsResponse);
 
   const handleProductsChange = (newProducts: ProductsResponseInterface) => {
     setProducts(newProducts);
   };
+  console.log({ products });
 
   return (
     <div>
@@ -30,25 +34,32 @@ export default function ProductsSection({
           categories={categories}
           onProductsChange={handleProductsChange}
           selectedCategory={selectedCategory}
-          initialSort={initialSort}
-          initialSearch={initialSearch}
+          currentSort={currentSort}
+          currentSearch={currentSearch}
         />
 
         <div className="mt-8">
-          <TitleContainer>
-            <PageTitle>{selectedCategory?.name}</PageTitle>
-            <CategoryDescription>
-              {selectedCategory?.description}
-            </CategoryDescription>
-          </TitleContainer>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-4">
-            {products.products.map((product: any) => (
-              <div key={product.id} className="border text-black p-4 rounded">
-                <h3>{product.name}</h3>
-                <p>R$ {product.price}</p>
-              </div>
-            ))}
+          <div>
+            <TitleContainer>
+              <PageTitle>
+                {selectedCategory?.name || 'Todos os produtos'}
+              </PageTitle>
+              {selectedCategory?.description && (
+                <CategoryDescription>
+                  {selectedCategory.description}
+                </CategoryDescription>
+              )}
+            </TitleContainer>
+            <ProductsList
+              products={products.products}
+              categories={categories}
+              selectedCategoryName={selectedCategory?.name}
+            />
           </div>
+          <Pagination
+            pagination={products.pagination}
+            onPageChange={() => {}}
+          />
         </div>
       </main>
     </div>

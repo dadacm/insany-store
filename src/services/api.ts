@@ -1,4 +1,4 @@
-export const API_URL = 'https://api.insany.co/api'; // ou sua API real
+export const API_URL = 'https://api.insany.co/api';
 
 export async function apiFetch<T>(endpoint: string): Promise<T> {
   const res = await fetch(`${API_URL}${endpoint}`, {

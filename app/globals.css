@@ -23,6 +23,9 @@ main {
 }
 
 body {
+  justify-content: center;
+  display: flex;
+  padding-bottom: 115px;
   padding-inline: 10%;
   background: var(--background);
   color: var(--foreground);

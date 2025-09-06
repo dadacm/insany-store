@@ -5,6 +5,7 @@ export interface ProductsSectionProps {
   productsResponse: ProductsResponseInterface;
   categories: CategoryInterface[];
   selectedCategory?: CategoryInterface;
-  initialSort?: string;
-  initialSearch?: string;
+  currentSort?: string;
+  currentSearch?: string;
+  currentPage?: number;
 }
