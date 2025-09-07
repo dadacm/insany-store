@@ -5,24 +5,24 @@ export const SelectContainer = styled.div`
   display: inline-block;
 `;
 
-export const SelectField = styled.div<{ disabled?: boolean }>`
+export const SelectField = styled.div<{ $disabled?: boolean }>`
   padding: 12px 40px 12px 0;
   background: transparent;
   border: none;
   outline: none;
   font-size: 14px;
   color: #737380;
-  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')};
-  opacity: ${props => (props.disabled ? 0.6 : 1)};
+  cursor: ${props => (props.$disabled ? 'not-allowed' : 'pointer')};
+  opacity: ${props => (props.$disabled ? 0.6 : 1)};
   position: relative;
 `;
 
-export const SelectArrow = styled.div<{ isOpen: boolean }>`
+export const SelectArrow = styled.div<{ $isOpen: boolean }>`
   position: absolute;
   right: 16px;
   top: 50%;
   transform: translateY(-50%)
-    ${props => (props.isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
+    ${props => (props.$isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
   pointer-events: none;
   color: #666;
   display: flex;
@@ -47,7 +47,7 @@ export const SelectDropdown = styled.ul`
   overflow-y: auto;
 `;
 
-export const SelectOption = styled.li<{ isSelected?: boolean }>`
+export const SelectOption = styled.li<{ $isSelected?: boolean }>`
   padding: 8px 12px;
   background: white;
   color: #737380;

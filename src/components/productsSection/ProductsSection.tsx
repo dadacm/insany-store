@@ -10,6 +10,7 @@ import {
 } from './ProductsSection.styles';
 import ProductsList from '../productsList/ProductsList';
 import { Pagination } from '../pagination/Pagination';
+import { useSearchParams } from 'next/navigation';
 
 export default function ProductsSection({
   productsResponse,
@@ -24,6 +25,10 @@ export default function ProductsSection({
   const handleProductsChange = (newProducts: ProductsResponseInterface) => {
     setProducts(newProducts);
   };
+  const searchParams = useSearchParams();
+  const search = searchParams.get('search') || currentSearch;
+  const hasSearch = search && search.trim() !== '';
+
   console.log({ products });
 
   return (
@@ -50,6 +55,23 @@ export default function ProductsSection({
                 </CategoryDescription>
               )}
             </TitleContainer>
+            {hasSearch && (
+              <div className="items-center flex  min-w-2xl w-full">
+                <div style={{ fontSize: '14px', color: '#495057' }}>
+                  Resultados para: <strong>"{search}"</strong>
+                </div>
+                <div
+                  style={{
+                    fontSize: '12px',
+                    color: '#6c757d',
+                    marginBlock: '14px',
+                  }}
+                >
+                  {productsResponse.pagination.totalProducts} produtos
+                  encontrados
+                </div>
+              </div>
+            )}
             <ProductsList
               products={products.products}
               categories={categories}

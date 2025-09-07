@@ -16,7 +16,12 @@ export default function ProductFilters({
   categories,
   productsResponse,
   onProductsChange,
-  selectedCategory = { id: 'all', name: 'all', description: '' },
+  selectedCategory = {
+    id: 'all',
+    name: 'all',
+    description: '',
+    productCount: 0,
+  },
   currentSort = '',
   currentSearch = '',
 }: ProductFilterProps) {

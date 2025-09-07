@@ -30,7 +30,9 @@ export async function getProducts(
   params.set('limit', limit.toString());
 
   const query = params.toString() ? `?${params.toString()}` : '';
-  return apiFetch<ProductsResponseInterface>(`/products${query}`);
+  const fullUrl = `/products${query}`;
+
+  return apiFetch<ProductsResponseInterface>(fullUrl);
 }
 
 export async function getProductById(

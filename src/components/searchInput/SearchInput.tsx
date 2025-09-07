@@ -1,5 +1,10 @@
 import Image from 'next/image';
-import { SearchContainer, SearchIcon, SearchInput } from './SearchInput.styles';
+import {
+  SearchContainer,
+  SearchIcon,
+  SearchInput,
+  LoadingSpinner,
+} from './SearchInput.styles';
 
 interface SearchInputProps {
   className?: string;
@@ -8,6 +13,7 @@ interface SearchInputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
   onSearch?: () => void;
+  isLoading?: boolean;
 }
 
 export default function SearchInputComponent({
@@ -17,15 +23,16 @@ export default function SearchInputComponent({
   onChange,
   onKeyDown,
   onSearch,
+  isLoading = false,
 }: SearchInputProps) {
   const handleSearch = () => {
-    if (onSearch) {
+    if (onSearch && !isLoading) {
       onSearch();
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && !isLoading) {
       handleSearch();
     }
     if (onKeyDown) {
@@ -41,9 +48,14 @@ export default function SearchInputComponent({
         value={value}
         onChange={onChange}
         onKeyDown={handleKeyDown}
+        disabled={isLoading}
       />
-      <SearchIcon onClick={onSearch}>
-        <Image src="/search-icon.svg" alt="Buscar" width={24} height={24} />
+      <SearchIcon onClick={handleSearch} disabled={isLoading}>
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <Image src="/search-icon.svg" alt="Buscar" width={24} height={24} />
+        )}
       </SearchIcon>
     </SearchContainer>
   );

@@ -1,7 +1,9 @@
 'use client';
 
 import Image from 'next/image';
+import Link from 'next/link';
 import SearchInputComponent from '../searchInput/SearchInput';
+import { useSearch } from '@/hooks/useSearch';
 import {
   BagIconContainer,
   CartBadge,
@@ -11,18 +13,34 @@ import {
 } from './Header.styles';
 
 export default function Header() {
+  const { searchValue, setSearchValue, handleSearch, isSearching } =
+    useSearch();
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(e.target.value);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && !isSearching) {
+      handleSearch();
+    }
+  };
+
   return (
     <HeaderContainer>
       <HeaderContent>
-        <HeaderTitle>InsanyShop</HeaderTitle>
+        <Link href="/">
+          <HeaderTitle>InsanyShop</HeaderTitle>
+        </Link>
         <div className="flex items-center gap-4">
           <SearchInputComponent
             className="search-input"
             placeholder="Procurando por algo específico?"
-            value={''}
-            onChange={() => {}}
-            onKeyDown={() => {}}
-            onSearch={() => {}}
+            value={searchValue}
+            onChange={handleInputChange}
+            onKeyDown={handleKeyDown}
+            onSearch={handleSearch}
+            isLoading={isSearching}
           />
           <BagIconContainer>
             <Image

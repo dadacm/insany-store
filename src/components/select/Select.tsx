@@ -73,9 +73,9 @@ export default function Select({
 
   return (
     <SelectContainer ref={selectRef} className={className}>
-      <SelectField onClick={handleToggle} disabled={disabled}>
+      <SelectField onClick={handleToggle} $disabled={disabled}>
         {selectedOption ? selectedOption.label : placeholder}
-        <SelectArrow isOpen={isOpen}>
+        <SelectArrow $isOpen={isOpen}>
           <svg
             width="12"
             height="8"
@@ -100,7 +100,7 @@ export default function Select({
             <SelectOption
               key={option.value}
               onClick={() => handleSelect(option.value)}
-              isSelected={option.value === selectedValue}
+              $isSelected={option.value === selectedValue}
             >
               {option.label}
             </SelectOption>
