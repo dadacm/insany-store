@@ -36,7 +36,7 @@ export function sortProducts(
       return sortedProducts.sort((a, b) => {
         const stockA = a.stock || 0;
         const stockB = b.stock || 0;
-        return stockA - stockB;
+        return stockB - stockA;
       });
 
     default:

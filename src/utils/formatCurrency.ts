@@ -1,5 +1,5 @@
 export function formatCurrency(value: number): string {
-  if (typeof value !== 'number' || isNaN(value)) {
+  if (typeof value !== 'number' || isNaN(value) || !isFinite(value)) {
     return 'R$ 0,00';
   }
 
@@ -10,5 +10,5 @@ export function formatCurrency(value: number): string {
     maximumFractionDigits: 2,
   });
 
-  return formattedValue;
+  return formattedValue.replace(/\u00A0/g, ' ');
 }
