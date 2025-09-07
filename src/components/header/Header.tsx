@@ -29,7 +29,6 @@ export default function Header() {
   };
 
   const totalItems = items.reduce((total, item) => total + item.quantity, 0);
-  console.log(totalItems);
 
   return (
     <HeaderContainer>
