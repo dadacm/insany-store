@@ -16,7 +16,7 @@ import {
 export default function Header() {
   const { searchValue, setSearchValue, handleSearch, isSearching } =
     useSearch();
-  const { items, isLoading } = useCart(); // Usar items diretamente
+  const { items, isLoading } = useCart();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);

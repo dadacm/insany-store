@@ -14,8 +14,9 @@ import {
 } from './ProductCard.styles';
 import { findCategoryById } from '@/utils/findCategoryById';
 import { formatCurrency } from '@/utils/formatCurrency';
-import Button from '../button/Button';
-import { useCart } from '@/hooks/useCart';
+import { generateSlug } from '@/utils/generateSlugs';
+import { useRouter } from 'next/navigation';
+import { AddItemToCartButton } from '../addItemToCartButton/AddItemToCartButton';
 
 export default function ProductCard({
   product,
@@ -23,7 +24,6 @@ export default function ProductCard({
   categories,
 }: ProductCardProps) {
   const { category, description, image, name, price, rating, stock } = product;
-  const { addItem, isInCart, getItemQuantity, isLoading } = useCart();
 
   const hasSelectedCategory =
     selectedCategoryName && selectedCategoryName != 'all';
@@ -32,15 +32,15 @@ export default function ProductCard({
     ? selectedCategoryName
     : findCategoryById(categories, category)?.name;
 
-  const handleAddToCart = () => {
-    addItem(product);
+  const router = useRouter();
+
+  const handleCardClick = () => {
+    const slug = generateSlug(name);
+    router.push(`/produto/${slug}`);
   };
 
-  const isProductInCart = isInCart(product.id);
-  const quantityInCart = getItemQuantity(product.id);
-
   return (
-    <ProductCardContainer>
+    <ProductCardContainer onClick={handleCardClick}>
       <ProductImageContainer>
         <Image
           className="rounded-t-[19px] "
@@ -71,22 +71,7 @@ export default function ProductCard({
           <PriceText>{formatCurrency(price)}</PriceText>
           <StockText>{stock} em estoque</StockText>
         </PriceStockContainer>
-        <Button
-          className="mt-3.5"
-          icon={
-            <Image
-              alt="carrinho de compras"
-              src="/market-cart-icon.svg"
-              width={24}
-              height={24}
-            />
-          }
-          onClick={handleAddToCart}
-          disabled={isLoading || stock === 0}
-          variant={isProductInCart ? 'secondary' : 'primary'}
-        >
-          Adicionar {isProductInCart && `( ${quantityInCart} )`}
-        </Button>
+        <AddItemToCartButton product={product} />
       </ProductInfoContainer>
     </ProductCardContainer>
   );

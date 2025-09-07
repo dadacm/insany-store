@@ -6,6 +6,7 @@ export const ProductCardContainer = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
   min-width: 280px;
   max-width: 420px;
+  cursor: pointer;
 `;
 export const ProductImageContainer = styled.div`
   position: relative;
