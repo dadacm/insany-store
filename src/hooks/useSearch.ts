@@ -49,6 +49,7 @@ export function useSearch() {
   return {
     searchValue,
     setSearchValue,
+    performSearch,
     handleSearch,
     clearSearch,
     isSearching,
