@@ -83,9 +83,9 @@ export default function ProductCard({
           }
           onClick={handleAddToCart}
           disabled={isLoading || stock === 0}
-          variant="primary"
+          variant={isProductInCart ? 'secondary' : 'primary'}
         >
-          Adicionar
+          Adicionar {isProductInCart && `( ${quantityInCart} )`}
         </Button>
       </ProductInfoContainer>
     </ProductCardContainer>
