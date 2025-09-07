@@ -18,7 +18,6 @@ export default function ProductsSection({
   selectedCategory,
   currentSort,
   currentSearch,
-  currentPage = 1,
 }: ProductsSectionProps) {
   const [products, setProducts] = useState(productsResponse);
 
@@ -28,8 +27,6 @@ export default function ProductsSection({
   const searchParams = useSearchParams();
   const search = searchParams.get('search') || currentSearch;
   const hasSearch = search && search.trim() !== '';
-
-  console.log({ products });
 
   return (
     <div>
