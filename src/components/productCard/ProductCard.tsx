@@ -15,6 +15,7 @@ import {
 import { findCategoryById } from '@/utils/findCategoryById';
 import { formatCurrency } from '@/utils/formatCurrency';
 import Button from '../button/Button';
+import { useCart } from '@/hooks/useCart';
 
 export default function ProductCard({
   product,
@@ -22,12 +23,21 @@ export default function ProductCard({
   categories,
 }: ProductCardProps) {
   const { category, description, image, name, price, rating, stock } = product;
+  const { addItem, isInCart, getItemQuantity, isLoading } = useCart();
+
   const hasSelectedCategory =
     selectedCategoryName && selectedCategoryName != 'all';
 
   const productCategoryName = hasSelectedCategory
     ? selectedCategoryName
     : findCategoryById(categories, category)?.name;
+
+  const handleAddToCart = () => {
+    addItem(product);
+  };
+
+  const isProductInCart = isInCart(product.id);
+  const quantityInCart = getItemQuantity(product.id);
 
   return (
     <ProductCardContainer>
@@ -71,6 +81,9 @@ export default function ProductCard({
               height={24}
             />
           }
+          onClick={handleAddToCart}
+          disabled={isLoading || stock === 0}
+          variant="primary"
         >
           Adicionar
         </Button>

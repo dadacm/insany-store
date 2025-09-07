@@ -7,7 +7,7 @@ const spin = keyframes`
 
 export const SearchContainer = styled.div`
   position: relative;
-  display: flex;
+  display: inline-block;
   align-items: center;
   width: 100%;
   max-width: 400px;
@@ -15,12 +15,14 @@ export const SearchContainer = styled.div`
 
 export const SearchInput = styled.input`
   width: 100%;
-  padding: 12px 48px 12px 16px;
-  border: 1px solid #e0e0e0;
+  background-color: #f3f7ff;
+  padding: 10px 50px 10px 12px;
+  border: none;
   border-radius: 8px;
   font-size: 14px;
   outline: none;
-  transition: all 0.2s ease;
+  transition: all 0.2s ease-in-out;
+  margin-right: 86px;
 
   &:disabled {
     background-color: #f8f9fa;

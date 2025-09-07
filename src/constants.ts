@@ -20,3 +20,5 @@ export const media = {
   desktop: `@media (min-width: ${BREAKPOINTS.desktop})`,
   largeDesktop: `@media (min-width: ${BREAKPOINTS.largeDesktop})`,
 } as const;
+
+export const DELIVERY_PRICE = 40.0;

@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import SearchInputComponent from '../searchInput/SearchInput';
 import { useSearch } from '@/hooks/useSearch';
+import { useCart } from '@/hooks/useCart';
 import {
   BagIconContainer,
   CartBadge,
@@ -15,6 +16,7 @@ import {
 export default function Header() {
   const { searchValue, setSearchValue, handleSearch, isSearching } =
     useSearch();
+  const { items, isLoading } = useCart(); // Usar items diretamente
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
@@ -25,6 +27,9 @@ export default function Header() {
       handleSearch();
     }
   };
+
+  const totalItems = items.reduce((total, item) => total + item.quantity, 0);
+  console.log(totalItems);
 
   return (
     <HeaderContainer>
@@ -42,15 +47,19 @@ export default function Header() {
             onSearch={handleSearch}
             isLoading={isSearching}
           />
-          <BagIconContainer>
-            <Image
-              alt="seu carrinho"
-              width={24}
-              height={24}
-              src={'/bag-icon.svg'}
-            />
-            <CartBadge>2</CartBadge>
-          </BagIconContainer>
+          <Link href="/carrinho">
+            <BagIconContainer>
+              <Image
+                alt="seu carrinho"
+                width={24}
+                height={24}
+                src={'/bag-icon.svg'}
+              />
+              {!isLoading && totalItems > 0 && (
+                <CartBadge>{totalItems}</CartBadge>
+              )}
+            </BagIconContainer>
+          </Link>
         </div>
       </HeaderContent>
     </HeaderContainer>

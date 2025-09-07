@@ -3,6 +3,7 @@ import { Inter, Saira } from 'next/font/google';
 import StyledComponentsRegistry from '../lib/styled-copmponents-resgistry';
 import './globals.css';
 import Header from '@/components/header/Header';
+import { CartProvider } from '@/contexts/CartContext';
 
 const inter = Inter({
   variable: '--font-inter',
@@ -29,8 +30,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${saira.variable} antialiased`}>
         <StyledComponentsRegistry>
-          <Header />
-          {children}
+          <CartProvider>
+            <Header />
+            {children}
+          </CartProvider>
         </StyledComponentsRegistry>
       </body>
     </html>
