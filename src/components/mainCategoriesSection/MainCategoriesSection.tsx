@@ -2,6 +2,7 @@
 
 import MainCategoriesItem from '../mainCategoryItem/MainCategoryItem';
 import {
+  MainCategoriesContainer,
   MainCategoriesList,
   MainCategoriesTitle,
 } from './MainCategoriesSection.styles';
@@ -11,7 +12,7 @@ export default function MainCategories({
   categories,
 }: MainCategoriesSectionProps) {
   return (
-    <div>
+    <MainCategoriesContainer>
       <MainCategoriesTitle>Principais categorias</MainCategoriesTitle>
       <MainCategoriesList>
         {categories.map(category => (
@@ -22,6 +23,6 @@ export default function MainCategories({
           />
         ))}
       </MainCategoriesList>
-    </div>
+    </MainCategoriesContainer>
   );
 }
