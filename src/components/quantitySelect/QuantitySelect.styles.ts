@@ -1,3 +1,4 @@
+import { media } from '@/constants';
 import styled from 'styled-components';
 
 export const QuantitySelectContainer = styled.div`
@@ -24,6 +25,12 @@ export const QuantitySelectField = styled.div<{ $disabled?: boolean }>`
   &:hover:not(:disabled) {
     border-color: #9ca3af;
   }
+
+  ${media.mobile} {
+    font-size: 14px;
+    padding: 4px 8px 4px 8px;
+    min-width: 45px;
+  }
 `;
 
 export const QuantitySelectArrow = styled.div<{ $isOpen: boolean }>`
@@ -33,6 +40,11 @@ export const QuantitySelectArrow = styled.div<{ $isOpen: boolean }>`
   color: #a8a8b3;
   transition: transform 0.2s ease;
   transform: ${props => (props.$isOpen ? 'rotate(180deg)' : 'rotate(0deg)')};
+
+  ${media.mobile} {
+    width: 16px;
+    height: 16px;
+  }
 `;
 
 export const QuantitySelectDropdown = styled.ul`
@@ -50,6 +62,11 @@ export const QuantitySelectDropdown = styled.ul`
   list-style: none;
   max-height: 200px;
   overflow-y: auto;
+
+  ${media.mobile} {
+    padding: 2px 0;
+    margin: 2px 0 0 0;
+  }
 `;
 
 export const QuantitySelectOption = styled.li<{ $isSelected?: boolean }>`

@@ -15,6 +15,7 @@ export const CartResumeCard = styled.div`
 
   ${media.mobile} {
     width: 100%;
+    margin-bottom: 10px;
   }
 `;
 export const CartResumeTitle = styled.h2`

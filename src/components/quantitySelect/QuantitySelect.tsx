@@ -8,14 +8,7 @@ import {
   QuantitySelectDropdown,
   QuantitySelectOption,
 } from './QuantitySelect.styles';
-
-export interface QuantitySelectProps {
-  value: number;
-  maxQuantity?: number;
-  onChange: (quantity: number) => void;
-  disabled?: boolean;
-  className?: string;
-}
+import { QuantitySelectProps } from './QuantitySelect.types';
 
 export default function QuantitySelect({
   value,

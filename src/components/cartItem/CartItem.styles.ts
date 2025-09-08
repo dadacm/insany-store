@@ -32,6 +32,19 @@ export const ProductName = styled.h3`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  ${media.mobile} {
+    font-size: 16px;
+    white-space: normal;
+  }
+  ${media.tablet} {
+    font-size: 16px;
+    white-space: normal;
+  }
+  ${media.desktop} {
+    font-size: 16px;
+    white-space: normal;
+  }
 `;
 
 export const QuantityControls = styled.div`
@@ -52,8 +65,7 @@ export const ProductDescriptionText = styled.p`
   -webkit-box-orient: vertical;
 
   ${media.mobile} {
-    height: 48px;
-    -webkit-line-clamp: 2;
+    max-width: 153px;
   }
 `;
 
@@ -61,6 +73,10 @@ export const CartItemPrice = styled.span`
   font-size: 16px;
   font-weight: 600;
   color: #09090a;
+
+  ${media.mobile} {
+    font-size: 14px;
+  }
 `;
 
 export const RemoveButton = styled.button`

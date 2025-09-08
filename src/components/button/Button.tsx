@@ -17,7 +17,7 @@ export default function Button({
       onClick={onClick}
       disabled={disabled}
       type={type}
-      className={className}
+      className={[className, variant].filter(Boolean).join(' ')}
     >
       {icon && <IconContainer>{icon}</IconContainer>}
       {children}
