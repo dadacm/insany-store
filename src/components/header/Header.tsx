@@ -5,6 +5,7 @@ import Link from 'next/link';
 import SearchInputComponent from '../searchInput/SearchInput';
 import { useSearch } from '@/hooks/useSearch';
 import { useCart } from '@/hooks/useCart';
+import { Suspense } from 'react';
 import {
   BagIconContainer,
   CartBadge,
@@ -13,7 +14,8 @@ import {
   HeaderTitle,
 } from './Header.styles';
 
-export default function Header() {
+// Componente interno que usa useSearchParams
+function HeaderWithSearch() {
   const { searchValue, setSearchValue, handleSearch, isSearching } =
     useSearch();
   const { items, isLoading } = useCart();
@@ -62,5 +64,45 @@ export default function Header() {
         </div>
       </HeaderContent>
     </HeaderContainer>
+  );
+}
+
+function HeaderFallback() {
+  return (
+    <HeaderContainer>
+      <HeaderContent>
+        <Link href="/">
+          <HeaderTitle>InsanyShop</HeaderTitle>
+        </Link>
+        <div className="flex items-center gap-4">
+          <div
+            style={{
+              width: '300px',
+              height: '40px',
+              backgroundColor: '#f0f0f0',
+              borderRadius: '4px',
+            }}
+          />
+          <Link href="/carrinho">
+            <BagIconContainer>
+              <Image
+                alt="seu carrinho"
+                width={24}
+                height={24}
+                src={'/bag-icon.svg'}
+              />
+            </BagIconContainer>
+          </Link>
+        </div>
+      </HeaderContent>
+    </HeaderContainer>
+  );
+}
+
+export default function Header() {
+  return (
+    <Suspense fallback={<HeaderFallback />}>
+      <HeaderWithSearch />
+    </Suspense>
   );
 }
