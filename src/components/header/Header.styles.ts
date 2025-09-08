@@ -1,3 +1,4 @@
+import { media } from '@/constants';
 import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
@@ -24,6 +25,9 @@ export const HeaderTitle = styled.h1`
   font-size: 40px;
   font-weight: 700;
   color: #5d5d6d;
+  ${media.mobile} {
+    font-size: 24px;
+  }
 `;
 export const BagIconContainer = styled.div`
   position: relative;
