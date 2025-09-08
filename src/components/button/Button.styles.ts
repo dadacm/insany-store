@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { ButtonVariant } from './Button.types';
 
 interface StyledButtonProps {
-  variant: ButtonVariant;
+  $variant: ButtonVariant;
   $hasIcon: boolean;
 }
 
@@ -45,7 +45,7 @@ export const StyledButton = styled.button<StyledButtonProps>`
     cursor: not-allowed;
   }
 
-  ${props => variantStyles[props.variant]}
+  ${props => variantStyles[props.$variant]}
 `;
 
 export const IconContainer = styled.span`

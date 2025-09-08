@@ -12,7 +12,7 @@ export default function Button({
 }: ButtonProps) {
   return (
     <StyledButton
-      variant={variant}
+      $variant={variant}
       $hasIcon={!!icon}
       onClick={onClick}
       disabled={disabled}
