@@ -18,7 +18,7 @@ interface SearchInputProps {
 
 export default function SearchInputComponent({
   className,
-  placeholder,
+  placeholder = 'Buscar produtos...',
   value,
   onChange,
   onKeyDown,

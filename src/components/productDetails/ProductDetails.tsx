@@ -29,7 +29,6 @@ interface ProductDetails {
 export function ProductDetails({ product, categories }: ProductDetails) {
   const productCategoryName =
     categories && findCategoryById(categories, product?.category)?.name;
-  console.log(categories, productCategoryName);
 
   return (
     <ProductDetailsContainer>
