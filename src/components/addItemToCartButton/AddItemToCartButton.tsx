@@ -23,7 +23,10 @@ export function AddItemToCartButton({ product }: AddItemToCartProps) {
           height={24}
         />
       }
-      onClick={handleAddToCart}
+      onClick={e => {
+        e.stopPropagation();
+        handleAddToCart();
+      }}
       disabled={isLoading || product.stock === 0}
       variant={isProductInCart ? 'secondary' : 'primary'}
     >
