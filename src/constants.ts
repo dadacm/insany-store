@@ -8,7 +8,7 @@ export const SORT_OPTIONS = [
 export const PRODUCTS_PER_PAGE = 8;
 
 export const BREAKPOINTS = {
-  mobile: '480px',
+  mobile: '680px',
   tablet: '746px',
   desktop: '1050px',
   largeDesktop: '1430px',
