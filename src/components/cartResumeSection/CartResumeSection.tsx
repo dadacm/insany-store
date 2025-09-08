@@ -10,6 +10,7 @@ import {
   CartResumeTotalItem,
   Separator,
 } from './CartResumeSection.styles';
+import CartResumeFooter from '../CartResumeFooter/CartResumeFooter';
 
 export default function CartResumeSection() {
   const { getTotalPrice } = useCart();
@@ -36,12 +37,7 @@ export default function CartResumeSection() {
         </CartResumeTotalItem>
         <Button variant="secondary">FINALIZAR A COMPRA</Button>
       </div>
-      <div className="text-sm flex flex-col text-[#737380] gap-3 underline">
-        <a>AJUDA</a>
-        <a>REEMBOLSO</a>
-        <a>ENTREGAS E FRETE</a>
-        <a>TROCAS E DEVOLUÇÕES</a>
-      </div>
+      <CartResumeFooter />
     </CartResumeCard>
   );
 }
