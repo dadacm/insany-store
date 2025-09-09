@@ -10,6 +10,7 @@ O projeto visa demonstrar boas práticas de desenvolvimento front-end, incluindo
 - **Next.js** – Framework React para aplicações web escaláveis
 - **TypeScript** – Superset do JavaScript com tipagem estática
 - **Tailwind CSS** – Framework utilitário para design responsivo
+- **Styled components** –Biblioteca para estilização de componentes
 - **Jest** – Framework de testes para JavaScript
 - **Vercel** – Plataforma de deploy contínuo
 
